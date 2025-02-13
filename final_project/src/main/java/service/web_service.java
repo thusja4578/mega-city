@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 import controller.database;
 import model.Bill;
+
+import model.driver;
+import model.help;
 import model.register;
 
 import model.vehicle;
@@ -139,6 +142,108 @@ public class web_service {
 	        } catch (ClassNotFoundException | SQLException e) {
 	            e.printStackTrace();
 	            return false;
+	        }
+	    }
+	 //**************************************************************************************************************************************
+	 //delete vehicle
+	 public void del_vehicle(vehicle del)
+		{
+			try {
+				String query="delete from vehicle where plate='"+del.getPlate()+"'";
+				Statement statet=database.getcon().createStatement();
+				statet.executeUpdate(query);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	 //*********************************************************************************************************************************
+	 //add driver
+	 public void add_driver(driver app11)
+		{
+			try {
+				String query="insert into driver values ('"+app11.getName()+"','"+app11.getAddress()+"','"+app11.getContact()+"','"+app11.getDob()+"','"+app11.getIdnum()+"','"+app11.getLicen()+"')";
+				Statement state=database.getcon().createStatement();
+				state.executeUpdate(query);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+	 //*********************************************************************************************************************************
+	 //driver table
+	 public ArrayList<driver> getalldriver()
+		{
+			try {
+				ArrayList<driver> listcus=new ArrayList<driver>();
+				String query="select*from driver";
+				Statement statement=database.getcon().createStatement();
+				ResultSet rs=statement.executeQuery(query);
+				while(rs.next())
+				{
+					driver cus1=new driver();
+					cus1.setName(rs.getString("name"));
+					cus1.setAddress(rs.getString("address"));
+					cus1.setContact(rs.getInt("contact"));
+					cus1.setDob(rs.getString("dob"));
+					cus1.setIdnum(rs.getInt("idnum"));
+					cus1.setLicen(rs.getInt("licen"));
+					listcus.add(cus1);
+				}
+				return listcus;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	 //********************************************************************************************************************************
+	 //update driver
+	 public boolean updatedriver(String namee,String addresss,int contactt,String dobb,int idnumm,int licenn) {
+	        try (Connection con = database.getcon()) {
+	            String query = "UPDATE driver SET name = ?, address = ?, contact=?, dob=?, licen=? WHERE idnum = ?";
+	            PreparedStatement ps = con.prepareStatement(query);
+	          
+	            
+	            ps.setString(1, namee);
+	            ps.setString(2, addresss);
+	            ps.setInt(3, contactt);
+	            ps.setString(4, dobb);
+	            ps.setInt(5, licenn);
+	            ps.setInt(6, idnumm);
+	         
+
+	            int rowsUpdated = ps.executeUpdate();
+	            return rowsUpdated > 0;
+	        } catch (ClassNotFoundException | SQLException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
+	 //***************************************************************************************************************************************
+	 //delete driver
+	 public void del_driver(driver del)
+		{
+			try {
+				String query="delete from driver where idnum='"+del.getIdnum()+"'";
+				Statement statet=database.getcon().createStatement();
+				statet.executeUpdate(query);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	 //************************************************************************************************************************************
+	 //help
+	 public help createhelp(String size) {
+	        switch (size.toLowerCase()) {
+	            case "low":
+	                return new help("Apple"); // Create Apple phone for low size
+	            case "medium":
+	                return new help("Huawei"); // Create Huawei phone for medium size
+	            case "large":
+	                return new help("Nokia"); // Create Nokia phone for large size
+	            default:
+	                return null; // Return null if no valid size is provided
 	        }
 	    }
 }

@@ -15,6 +15,9 @@
 <button type="submit">all vehicle</button>
 </form>
 
+<form action="drivertb" method="post">
+<button type="submit">all driver</button>
+</form>
 
 </body>
 </html>

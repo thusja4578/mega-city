@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table class="vehicle_tb">
+<table class="table">
   <thead>
     <tr>
       <th scope="col">plate</th>
@@ -46,12 +46,12 @@
   
  
     <td><form action=""method="post">
-    <input type="hidden" name="name" value="${cus.plate}">
+    <input type="hidden" name="plate" value="${cus.plate}">
     <button type="submit">add</button>
     </form></td>
     <td>
-    <form action ="" method="post">
-    <input type="hidden" name="name" value="${cus.plate}">
+    <form action ="vihicledel" method="post">
+    <input type="hidden" name="plate" value="${cus.plate}">
     <button type="submit">delete</button>
     </form>
     </td>
